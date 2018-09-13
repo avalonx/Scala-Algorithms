@@ -1,18 +1,14 @@
 package org.gs.symboltable
-/** @see http://algs4.cs.princeton.edu/33balanced/tinyST.txt
-  * @see http://algs4.cs.princeton.edu/33balanced/RedBlackBST.java.html
-  */
-import org.scalatest.FlatSpec
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.BeforeAndAfter
-import scala.collection.mutable.ArrayBuffer
-import org.scalatest.PrivateMethodTester
-import math.Ordering
 
-/** @author Gary Struthers
+import org.scalatest.{BeforeAndAfter, FlatSpec, PrivateMethodTester}
+import math.Ordering
+import scala.collection.mutable.ArrayBuffer
+
+/** @see [[https://algs4.cs.princeton.edu/33balanced/tinyST.txt]]
+  * @see [[https://algs4.cs.princeton.edu/33balanced/RedBlackBST.java.html]]
+  *
+  * @author Gary Struthers
   */
-@RunWith(classOf[JUnitRunner])
 class RedBlackBSTSuite extends FlatSpec with BeforeAndAfter with PrivateMethodTester {
   var testInput: ArrayBuffer[(Char, Int)] = _
   var lo = 0
@@ -192,5 +188,4 @@ class RedBlackBSTSuite extends FlatSpec with BeforeAndAfter with PrivateMethodTe
     //  assert(ost.is23, "Not a 2-3 tree")
     assert(ost.isBalanced, "Not balanced")
   }
-
 }

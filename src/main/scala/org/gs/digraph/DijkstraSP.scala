@@ -1,22 +1,22 @@
-/** @see http://algs4.cs.princeton.edu/44sp/DijkstraSP.java.html
-  */
 package org.gs.digraph
 
-import scala.annotation.tailrec
 import org.gs.queue.IndexMinPQ
+import scala.annotation.tailrec
 
 /** Solves for shortest path from a source where edge weights are non-negative
   *
-  * @author Scala translation by Gary Struthers from Java by Robert Sedgewick and Kevin Wayne.
-  *
   * @constructor creates a new DijkstraSP with an edge weighted digraph and source vertex
+  * @param g acyclic digraph, edges have direction and weight
+  * @param s source vertex
+  * @see [[https://algs4.cs.princeton.edu/44sp/DijkstraSP.java.html]]
+  * @author Scala translation by Gary Struthers from Java by Robert Sedgewick and Kevin Wayne.
   */
 class DijkstraSP(g: EdgeWeightedDigraph, s: Int) {
   require(g.edges forall (_.weight >= 0))
-  private[digraph] val _distTo = Array.fill[Double](g.V)(Double.PositiveInfinity)
+  private[digraph] val _distTo = Array.fill[Double](g.numV)(Double.PositiveInfinity)
   _distTo(s) = 0.0
-  private[digraph] val edgeTo = new Array[DirectedEdge](g.V)
-  private val pq = new IndexMinPQ[Double](g.V)
+  private[digraph] val edgeTo = new Array[DirectedEdge](g.numV)
+  private val pq = new IndexMinPQ[Double](g.numV)
   relaxVertices()
 
   private def relaxVertices() {
@@ -27,8 +27,7 @@ class DijkstraSP(g: EdgeWeightedDigraph, s: Int) {
       if (_distTo(w) > _distTo(v) + e.weight) {
         _distTo(w) = _distTo(v) + e.weight
         edgeTo(w) = e
-        if (pq.contains(w)) pq.decreaseKey(w, _distTo(w))
-        else pq.insert(w, _distTo(w))
+        if (pq.contains(w)) pq.decreaseKey(w, _distTo(w)) else pq.insert(w, _distTo(w))
       }
     }
 
@@ -56,10 +55,9 @@ class DijkstraSP(g: EdgeWeightedDigraph, s: Int) {
     if (!hasPathTo(v)) None else {
 
       @tailrec
-      def loop(e: DirectedEdge, path: List[DirectedEdge] ): List[DirectedEdge] = if(e != null)
-          loop(edgeTo(e.from), e :: path)
-        else path
-
+      def loop(e: DirectedEdge, path: List[DirectedEdge] ): List[DirectedEdge] = {
+        if(e != null) loop(edgeTo(e.from), e :: path) else path
+      }
       val path = loop(edgeTo(v), List[DirectedEdge]())
       Some(path)
     }

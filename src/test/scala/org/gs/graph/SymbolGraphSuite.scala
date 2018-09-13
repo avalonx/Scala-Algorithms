@@ -1,27 +1,26 @@
 package org.gs.graph
-/** [[http://doc.scalatest.org/2.2.0/#org.scalatest.FlatSpec ScalaTest]] for
-  *  [[org.gs.graph.SymbolGraph]]
-  * @author Gary Struthers
-  * @see http://algs4.cs.princeton.edu/41undirected/movies.txt
-  * @see http://algs4.cs.princeton.edu/41undirected/routes.txt
-  */
-import org.scalatest.FlatSpec
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.gs.graph.fixtures.SymbolGraphBuilder
-import org.gs.fixtures.IntArrayBuilder
 
-@RunWith(classOf[JUnitRunner])
+import org.gs.fixtures.IntArrayBuilder
+import org.gs.graph.fixtures.SymbolGraphBuilder
+import org.scalatest.FlatSpec
+
+/** [[org.gs.graph.SymbolGraph]]
+  * 
+  * @see [[https://algs4.cs.princeton.edu/41undirected/movies.txt]]
+  * @see [[https://algs4.cs.princeton.edu/41undirected/routes.txt]]
+  * @author Gary Struthers
+  */
+
 class SymbolGraphSuite extends FlatSpec {
   class Movies extends SymbolGraphBuilder {
-    val d = buildSymbolGraph("http://algs4.cs.princeton.edu/41undirected/movies.txt", "/")
+    val d = buildSymbolGraph("https://algs4.cs.princeton.edu/41undirected/movies.txt", "/")
   }
   val movies = new Movies
 
   behavior of "a SymbolGraph"
 
   it should "find vertices as keys and routes" in new SymbolGraphBuilder {
-    val d = buildSymbolGraph("http://algs4.cs.princeton.edu/41undirected/routes.txt", "\\s+")
+    val d = buildSymbolGraph("https://algs4.cs.princeton.edu/41undirected/routes.txt", "\\s+")
     val keys = d.keys
     val g = d.g
     assert("JFK" === keys(0))

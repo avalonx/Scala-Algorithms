@@ -1,12 +1,8 @@
 package org.gs.queue
-/** @author Gary Struthers
-  *
-  */
+
+import org.scalatest.FlatSpec
 import scala.collection.mutable.ArrayBuffer
 import scala.math.Ordering._
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
 import scala.reflect.ClassTag
 
 trait IndexQueueBuilder {
@@ -15,20 +11,16 @@ trait IndexQueueBuilder {
       Array[String](null, "it", "was", "the", "best", "of", "times", "it", "was", "the", "worst")
   val testSize = testStrings.size
   val minPQ = new IndexMinPQ[String](testSize)
-  for {
-    i <- 1 until testSize
-  } minPQ.insert(i, testStrings(i))
+  for( i <- 1 until testSize) minPQ.insert(i, testStrings(i))
   
   val minSorted = Vector("best", "it", "it", "the", "of", "times", "the", "was", "was", "worst")
   val maxPQ = new IndexMaxPQ[String](testSize)
-  for {
-    i <- 1 until testSize
-  } maxPQ.insert(i, testStrings(i))
+  for( i <- 1 until testSize) maxPQ.insert(i, testStrings(i))
   
   val maxSorted = Vector("worst", "was", "times", "the", "was", "the", "it", "best", "of", "it")
 }
 
-@RunWith(classOf[JUnitRunner])
+/** @author Gary Struthers */
 class IndexMaxPriorityQueueSuite extends FlatSpec {
   behavior of "a IndexMinPQ"
 
@@ -52,7 +44,6 @@ class IndexMaxPriorityQueueSuite extends FlatSpec {
     assert(minPQ.minKey === "it")
   }
 
-  
   it should "return keys sorted in ascending order" in new IndexQueueBuilder {
     assert(minPQ.keys === minSorted)
   }
@@ -76,7 +67,6 @@ class IndexMaxPriorityQueueSuite extends FlatSpec {
     assert("of" === minPQ.keyOf(5))
   }
   
-    
   it should "delete an indexed key" in new IndexQueueBuilder {
     val before = minPQ.keyOf(6)
     minPQ.delete(6)
@@ -104,7 +94,6 @@ class IndexMaxPriorityQueueSuite extends FlatSpec {
     assert(maxPQ.maxKey === "was")
   }
 
-  
   it should "return keys sorted in decending order" in new IndexQueueBuilder {
     assert(maxPQ.keys === maxSorted)
   }
@@ -128,11 +117,9 @@ class IndexMaxPriorityQueueSuite extends FlatSpec {
     assert("of" === maxPQ.keyOf(5))
   }
   
-    
   it should "delete an indexed key" in new IndexQueueBuilder {
     val before = maxPQ.keyOf(6)
     maxPQ.delete(6)
     intercept[IllegalArgumentException](maxPQ.keyOf(6))
   }
-
 }

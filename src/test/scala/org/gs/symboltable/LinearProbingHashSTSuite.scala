@@ -1,14 +1,8 @@
 package org.gs.symboltable
-/**
-  */
-import org.scalatest.FlatSpec
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.BeforeAndAfter
-import scala.collection.mutable.ArrayBuffer
-import org.scalatest.PrivateMethodTester
 
-@RunWith(classOf[JUnitRunner])
+import org.scalatest.{BeforeAndAfter, FlatSpec, PrivateMethodTester}
+import scala.collection.mutable.ArrayBuffer
+
 class LinearProbingHashSTSuite extends FlatSpec with BeforeAndAfter with PrivateMethodTester {
   var testInput: ArrayBuffer[(Char, Int)] = _
   var lo = 0

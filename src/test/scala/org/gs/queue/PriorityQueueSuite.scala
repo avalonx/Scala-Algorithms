@@ -1,12 +1,8 @@
 package org.gs.queue
-/** @author Gary Struthers
-  *
-  */
+
+import org.scalatest.FlatSpec
 import scala.collection.mutable.ArrayBuffer
 import scala.math.Ordering._
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
 
 trait QueueBuilder {
   val testChars = Array('P', 'H', 'I', 'O', 'E', 'G', 'A', 'R', 'T', 'N')
@@ -17,7 +13,7 @@ trait QueueBuilder {
   testChars foreach(c => minPQ.insert(c))
 }
 
-@RunWith(classOf[JUnitRunner])
+/** @author Gary Struthers */
 class MaxPriorityQueueSuite extends FlatSpec {
 
   behavior of "a MaxPQ"

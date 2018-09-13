@@ -1,16 +1,11 @@
-/** ScalaTest, JUnit tests for AcyclicSP
-  */
 package org.gs.digraph
 
 import org.gs.digraph.fixtures.DirectedEdgeBuilder
-import org.junit.runner.RunWith
 import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
 
-/** @author Gary Struthers
-  *
+/** ScalaTest for AcyclicSP
+  * @author Gary Struthers
   */
-@RunWith(classOf[JUnitRunner])
 class AcyclicSPSuite extends FlatSpec {
   it should "find paths in an EdgeWeightedDigraph" in new DirectedEdgeBuilder {    
     def expectedPaths() = {
@@ -26,7 +21,7 @@ class AcyclicSPSuite extends FlatSpec {
 
       paths
     }
-    val managedResource = readURI("http://algs4.cs.princeton.edu/44sp/tinyEWDAG.txt")
+    val managedResource = readURI("https://algs4.cs.princeton.edu/44sp/tinyEWDAG.txt")
     val tuple = managedResource.loan(readFileToTuple)
     val g = new EdgeWeightedDigraph(tuple._1)
 

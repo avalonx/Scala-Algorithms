@@ -1,23 +1,15 @@
-/**
-  */
 package org.gs.digraph
 
-import org.scalatest.FlatSpec
-import org.junit.runner.RunWith
-import org.scalautils._
-import org.scalautils.Tolerance._
 import org.gs.digraph.fixtures.TinyEdgeWeightedDigraphBuilder
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.FlatSpec
+import org.scalatest.Matchers._
 
 trait DijkstraAllPairsSPBuilder extends TinyEdgeWeightedDigraphBuilder {
-  val verticesLength = g.V
+  val verticesLength = g.numV
   val allPairsSP = new DijkstraAllPairsSP(g)
 }
 
-/** @author Gary Struthers
-  *
-  */
-@RunWith(classOf[JUnitRunner])
+/** @author Gary Struthers */
 class DijkstraAllPairsSPSuite extends FlatSpec {
   behavior of "a DijkstraAllPairsSP"
   it should "create a new DijkstraAllPairsSP from an EWD" in new TinyEdgeWeightedDigraphBuilder {

@@ -1,24 +1,19 @@
 package org.gs.digraph
-/** @see http://algs4.cs.princeton.edu/44sp/tinyDG.txt
-  * @see http://algs4.cs.princeton.edu/42directed/mediumDG.txt
-  */
-import org.scalatest.FlatSpec
-import org.junit.runner.RunWith
-import scala.collection.mutable.Queue
-import org.scalatest.junit.JUnitRunner
-import org.gs.digraph.fixtures.SymbolDigraphBuilder
-import org.gs.digraph.fixtures.DigraphBuilder
-import org.gs.fixtures.IntArrayBuilder
-import org.gs.digraph.fixtures.DirectedEdgeBuilder
-import org.gs.digraph.fixtures.UnweightedDigraphBuilder
 
-/** @author Gary Struthers
+import org.gs.digraph.fixtures.{DigraphBuilder, DirectedEdgeBuilder, SymbolDigraphBuilder,
+  UnweightedDigraphBuilder}
+import org.gs.fixtures.IntArrayBuilder
+import org.scalatest.FlatSpec
+import scala.collection.mutable.Queue
+
+/** @see [[https://algs4.cs.princeton.edu/44sp/tinyDG.txt]]
+  * @see [[https://algs4.cs.princeton.edu/42directed/mediumDG.txt]]
   *
+  * @author Gary Struthers
   */
-@RunWith(classOf[JUnitRunner])
 class KosarajuSharirSCCSuite extends FlatSpec {
 
-  val builder = new UnweightedDigraphBuilder("http://algs4.cs.princeton.edu/42directed/tinyDG.txt")
+  val builder = new UnweightedDigraphBuilder("https://algs4.cs.princeton.edu/42directed/tinyDG.txt")
   val tinyDG = builder.g
   val equals = (_: Int) == (_: Int)
   
@@ -36,7 +31,7 @@ class KosarajuSharirSCCSuite extends FlatSpec {
     val components = new Array[Queue[Int]](m)
     for(i <- 0 until m) components(i) = new Queue[Int]()
 
-    for(v <- 0 until tinyDG.V) components(scc.id(v)).enqueue(v)
+    for(v <- 0 until tinyDG.numV) components(scc.id(v)).enqueue(v)
     
     assert(components(0).corresponds(List(1))(equals))
     assert(components(1).corresponds(List(0, 2, 3, 4, 5))(equals))
@@ -58,7 +53,7 @@ class KosarajuSharirSCCSuite extends FlatSpec {
   } 
 
   it should "find strong components of a mediumDG" in new DigraphBuilder {
-    val managedResource = readURI("http://algs4.cs.princeton.edu/42directed/mediumDG.txt")
+    val managedResource = readURI("https://algs4.cs.princeton.edu/42directed/mediumDG.txt")
     val vEpairs = managedResource.loan(readFileToTuple)
     val savedLines = vEpairs._3
     val g = new Digraph(vEpairs._1)
@@ -70,7 +65,7 @@ class KosarajuSharirSCCSuite extends FlatSpec {
     val components = new Array[Queue[Int]](m)
     for(i <- 0 until m) components(i) = new Queue[Int]()
 
-    for(v <- 0 until g.V) components(scc.id(v)).enqueue(v)
+    for(v <- 0 until g.numV) components(scc.id(v)).enqueue(v)
 
     assert(components(0).corresponds(List(21))(equals))
     assert(components(1).corresponds(List(2, 5, 6, 8, 9, 11, 12, 13, 15, 16, 18, 19, 22, 23, 25, 26,

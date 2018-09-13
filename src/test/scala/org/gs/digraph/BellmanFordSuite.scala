@@ -1,24 +1,16 @@
-
 package org.gs.digraph
 
-import org.gs.digraph.fixtures.DirectedEdgeBuilder
-import org.junit.runner.RunWith
+import org.gs.digraph.fixtures.{BellmanFordBuilder, DirectedEdgeBuilder}
 import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
 import org.scalatest.PrivateMethodTester._
-import org.gs.digraph.fixtures.BellmanFordBuilder
 
-/** [[http://doc.scalatest.org/2.2.0/#org.scalatest.FlatSpec ScalaTest]] for
-  * [[org.gs.digraph.BellmanFordSP]]
+/** @see [[https://algs4.cs.princeton.edu/44sp/tinyEWDn.txt]]
   * @author Gary Struthers
-  * @see http://algs4.cs.princeton.edu/44sp/tinyEWDn.txt
   */
-@RunWith(classOf[JUnitRunner])
 class BellmanFordSuite extends FlatSpec {
   it should "have consistent distTo and edgeTo when no negative cycles" in new BellmanFordBuilder {
-
     val s = 0
-    val tuple = buildVEDirectedEdges("http://algs4.cs.princeton.edu/44sp/tinyEWDn.txt", s)
+    val tuple = buildVEDirectedEdges("https://algs4.cs.princeton.edu/44sp/tinyEWDn.txt", s)
     val g = buildEdgeWeightedDigraph(tuple._1)
     val a = buildBellmanFordSP(g, tuple._3)
     val getEdgeTo = PrivateMethod[DirectedEdge]('getEdgeTo)
@@ -28,15 +20,13 @@ class BellmanFordSuite extends FlatSpec {
     assert(e == null, s"edgeTo(s):$e inconsistent")
 
     for {
-      v <- 0 until g.V
+      v <- 0 until g.numV
       e <- g.adj(v)
-    } {
-      val w = e.to
-      if (a.distTo(v) + e.weight < a.distTo(w)) fail(s"edge:$e not relaxed")
-    }
+      w = e.to
+    } if (a.distTo(v) + e.weight < a.distTo(w)) fail(s"edge:$e not relaxed")
 
     for {
-      w <- 0 until g.V
+      w <- 0 until g.numV
       if (a.invokePrivate(getEdgeTo(w)) != null)
     } {
       val e = a invokePrivate getEdgeTo(w)
@@ -46,19 +36,18 @@ class BellmanFordSuite extends FlatSpec {
     }
 
     val paths = expectedTinyEWDnPaths(tuple._1, tuple._3)
-    for (i <- 0 until tuple._1) {
-      val p = a.pathTo(i)
-      p match {
+    for {
+      i <- 0 until tuple._1
+      p = a.pathTo(i)
+    } p match {
         case None => fail(s"path 0-$i not there")
         case Some(x) => assert(x.diff(paths(i)) === List())
-      }
     }
   }
 
   it should "have consistent distTo and edgeTo with negative cycles" in new BellmanFordBuilder {
-
     val s = 0
-    val tuple = buildVEDirectedEdges("http://algs4.cs.princeton.edu/44sp/tinyEWDnc.txt", s)
+    val tuple = buildVEDirectedEdges("https://algs4.cs.princeton.edu/44sp/tinyEWDnc.txt", s)
     val g = buildEdgeWeightedDigraph(tuple._1)
     val a = buildBellmanFordSP(g, tuple._3)
     val getEdgeTo = PrivateMethod[DirectedEdge]('getEdgeTo)
@@ -72,5 +61,4 @@ class BellmanFordSuite extends FlatSpec {
     val ncPaths = expectedTinyEWDncPaths(tuple._3)
     assert(nc.diff(ncPaths) === List())
   }
-
 }

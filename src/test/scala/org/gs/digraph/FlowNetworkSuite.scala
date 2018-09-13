@@ -1,18 +1,14 @@
-/** ScalaTest, JUnit tests for FLowNetwork
-  * @see http://algs4.cs.princeton.edu/64maxflow/tinyFN.txt
-  */
 package org.gs.digraph
 
-import org.gs.digraph.fixtures.DirectedEdgeBuilder
-import org.junit.runner.RunWith
+import org.gs.digraph.fixtures.{DirectedEdgeBuilder, FlowEdgeBuilder}
 import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
-import org.gs.digraph.fixtures.FlowEdgeBuilder
 
-/** @author Gary Struthers
+/** ScalaTest for FLowNetwork
   *
+  * @see [[https://algs4.cs.princeton.edu/64maxflow/tinyFN.txt]]
+  *
+  * @author Gary Struthers
   */
-@RunWith(classOf[JUnitRunner])
 class FlowNetworkSuite extends FlatSpec {
   behavior of "a FlowNetwork"
   

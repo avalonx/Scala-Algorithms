@@ -1,14 +1,12 @@
-/** @see http://algs4.cs.princeton.edu/34hash/SeparateChainingHashST.java.html
-  */
 package org.gs.symboltable
 
 /** Hash keys to array index allow for collisions with a list at each index
   *
-  * @author Scala translation by Gary Struthers from Java by Robert Sedgewick and Kevin Wayne.
-  *
   * @tparam A generic key type, its hash code is used
   * @tparam B generic value type
   * @param initialSize of array
+  * @see [[https://algs4.cs.princeton.edu/34hash/SeparateChainingHashST.java.html]]
+  * @author Scala translation by Gary Struthers from Java by Robert Sedgewick and Kevin Wayne.
   */
 class SeparateChainingHashST[A, B](initialSize: Int) {
   private var m = initialSize
@@ -45,9 +43,7 @@ class SeparateChainingHashST[A, B](initialSize: Int) {
     val i = hash(key)
     val chainList = st(i)
     val j = chainList indexWhere (chainGet(_, key))
-    if (j != -1) {
-      st(i) = chainList.take(j) ++ chainList.takeRight(chainList.length - j - 1)
-    }
+    if (j != -1) st(i) = chainList.take(j) ++ chainList.takeRight(chainList.length - j - 1)
   }
 
   /** insert pair, resize if necessary */
